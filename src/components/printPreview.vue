@@ -3,8 +3,12 @@
 		<!-- 顶部页面标题 header *************** 开始 -->
 		<printOpenTitle v-bind:printOpenTitle="printOpenTitle" @exitFun="exitPreview"></printOpenTitle>
 		<!-- 顶部页面标题 header *************** 结束 -->
-		<div id="viewer-host">
-			<JSViewer ref="reportViewer"></JSViewer>
+		<div class="printScrollBar">
+			<el-scrollbar style="height:100%">
+				<div id="viewer-host">
+					<JSViewer ref="reportViewer"></JSViewer>
+				</div>
+			</el-scrollbar>
 		</div>
 	</div>
 </template>
@@ -65,6 +69,14 @@
 </script>
 
 <style scoped>
+	/* 滚动条 */
+	.printScrollBar{
+		width: 100%;
+		/* height: calc(100% - 60px); */
+	}
+	.printFullscreen >>> .gcv-document-view{
+		height: calc(100% - 111px);
+	}
 	.printFullscreen >>> .gcv-header-container--fullscreen{
 		position: fixed;
 	}
