@@ -1,9 +1,6 @@
 <template>
 	<div>
-		<div id="viewer-host" v-show="reportStatus">
-			<JSViewer ref="reportViewer"></JSViewer>
-		</div>
-
+		<!-- 人员列表 -->
 		<el-table :data="tableData" style="width: 100%">
 			<el-table-column label="序号" type="index" width="60" align="center"></el-table-column>
 			<el-table-column prop="name" label="姓名" width="180"></el-table-column>
@@ -16,49 +13,48 @@
 				</template>
 			</el-table-column>
 		</el-table>
+		<!-- 打印预览 -->
+		<printPreview v-show="printOpenDialog" v-bind:userId="userId" @closePreview="closePreview" ref="DYZJ"></printPreview>
 	</div>
 </template>
 
 <script>
-	import {Viewer} from "@grapecity/activereports-vue";
-	import "@grapecity/activereports/styles/ar-js-ui.css";
-	import "@grapecity/activereports/styles/ar-js-viewer.css";
-
-	import "@grapecity/activereports/pdfexport";
-	import "@grapecity/activereports/htmlexport";
-	import "@grapecity/activereports/xlsxexport";
-	import "@grapecity/activereports-localization";
-
+	// 导入打印预览
+	import printPreview from "../../components/printPreview.vue"
+	
 	export default {
 		components: {
-			JSViewer: Viewer,
+			printPreview
 		},
 		data() {
 			return {
-				reportStatus:false,
+				// 打印弹框状态
+				printOpenDialog: false,
 				// 列表数据
 				tableData: [],
 				// 详情数据
-				userDetail: {}
+				userDetail: {},
+				// 人员Id
+				userId: ""
 			}
 		},
 		methods: {
 			// 打印
 			userPrint: function(row) {
-				// 显示报表容器
-				this.reportStatus = true;
-				//加载报表
-				this.$refs.reportViewer.Viewer().open("/report-design/statistics/user.rdlx-json",
-					{
-						ReportParams: [
-							{
-								Name:'userId',
-								Value:[row.id],
-							},
-						],
-					},
-					{language: 'zh'}
-				);
+				// 人员Id
+				this.userId = row.id;
+				// 显示报表容器弹框
+				this.printOpenDialog = true;
+				// 调用子集打印方法
+				this.$refs.DYZJ.printFun(row.id);
+			},
+			// 关闭预览弹框
+			closePreview: function(data) {
+				if (data === false) {
+					this.printOpenDialog = false;
+				} else {
+					this.printOpenDialog = true;
+				}
 			},
 			// 获取列表
 			getUserListDatas: function() {
@@ -75,6 +71,3 @@
 		}
 	}
 </script>
-
-<style>
-</style>

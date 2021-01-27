@@ -10,6 +10,12 @@ Vue.use(ElementUI,{ size: 'small', zIndex: 2000 })
 // axios
 import axios from 'axios'
 Vue.prototype.$axios = axios
+//引入公共样式
+import '../src/static/css/index.css'
+import '../src/static/css/global.css'
+
+
+
 
 Vue.config.productionTip = false
 
