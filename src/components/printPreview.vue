@@ -28,36 +28,14 @@
 		data(){
 			return{
 				// 弹框名称
-				printOpenTitle:"打印预览",
-				// 接受传过来的Id
-				paramId:""
-			}
-		},
-		props:{
-			userId:{
-				required:true,
-				type:[Number,String]
-			}
-		},
-		watch:{
-			userId:function(oldVal){
-				this.paramId = oldVal;
+				printOpenTitle:"打印预览"
 			}
 		},
 		methods:{
 			// 打印
-			printFun: function(userId) {
+			printFun: function(path,params) {
 				//加载报表
-				this.$refs.reportViewer.Viewer().open("/report-design/statistics/user.rdlx-json",
-					{
-						ReportParams: [
-							{
-								Name:'userId',
-								Value:[Number(userId)],
-							},
-						],
-					}
-				);
+				this.$refs.reportViewer.Viewer().open(path , params);
 			},
 			// 退出
 			exitPreview:function(){

@@ -14,7 +14,7 @@
 			</el-table-column>
 		</el-table>
 		<!-- 打印预览 -->
-		<printPreview v-show="printOpenDialog" v-bind:userId="userId" @closePreview="closePreview" ref="DYZJ"></printPreview>
+		<printPreview v-show="printOpenDialog" @closePreview="closePreview" ref="DYZJ"></printPreview>
 	</div>
 </template>
 
@@ -31,22 +31,26 @@
 				// 打印弹框状态
 				printOpenDialog: false,
 				// 列表数据
-				tableData: [],
-				// 详情数据
-				userDetail: {},
-				// 人员Id
-				userId: ""
+				tableData: []
 			}
 		},
 		methods: {
 			// 打印
 			userPrint: function(row) {
-				// 人员Id
-				this.userId = row.id;
 				// 显示报表容器弹框
 				this.printOpenDialog = true;
 				// 调用子集打印方法
-				this.$refs.DYZJ.printFun(row.id);
+				// 路径
+				const path = "/report-design/statistics/user.rdlx-json" ;
+				var params = {
+					ReportParams: [
+						{
+							Name:'userId',
+							Value:[row.id],
+						},
+					]
+				}
+				this.$refs.DYZJ.printFun(path,params);
 			},
 			// 关闭预览弹框
 			closePreview: function(data) {
