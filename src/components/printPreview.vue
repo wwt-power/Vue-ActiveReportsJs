@@ -6,7 +6,7 @@
 		<div class="printScrollBar">
 			<el-scrollbar style="height:100%">
 				<div id="viewer-host">
-					<JSViewer ref="reportViewer"></JSViewer>
+					<JSViewer ref="reportViewer" language="zh" ></JSViewer>
 				</div>
 			</el-scrollbar>
 		</div>
@@ -15,16 +15,15 @@
 
 <script>
 	import printOpenTitle from "./printOpenTitle.vue"
-	import {
-		Viewer
-	} from "@grapecity/activereports-vue";
+	import {Viewer} from "@grapecity/activereports-vue";
+	
+	import "@grapecity/activereports-localization";
 	import "@grapecity/activereports/styles/ar-js-ui.css";
 	import "@grapecity/activereports/styles/ar-js-viewer.css";
 
 	import "@grapecity/activereports/pdfexport";
 	import "@grapecity/activereports/htmlexport";
 	import "@grapecity/activereports/xlsxexport";
-	import "@grapecity/activereports-localization";
 
 	export default {
 		components: {

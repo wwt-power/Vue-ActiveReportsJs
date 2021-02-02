@@ -40,10 +40,10 @@
       "parser": "babel-eslint"
     },
     "rules": {
-		"arrow-parens":0,
-		"no-mixed-spaces-and-tabs":0,
-		"generator-star-spacing":0
-	}
+      "arrow-parens": 0,
+      "no-mixed-spaces-and-tabs": 0,
+      "generator-star-spacing": 0
+    }
   },
   "browserslist": [
     "> 1%",
